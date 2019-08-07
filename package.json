@@ -1,0 +1,62 @@
+{
+  "name": "now-crom-ts",
+  "version": "0.0.1",
+  "description": "Typescript version for node-crone",
+  "author": "Ziv Perry",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "prebuild": "rimraf dist",
+    "build": "tsc --build tsconfig.prod.json",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "start": "ts-node -r tsconfig-paths/register src/main.ts",
+    "start:cli": "ts-node -r tsconfig-paths/register scripts/start-alpha-listener.ts",
+    "start:dev": "nodemon",
+    "start:docker-inter": "docker-compose -f docker-compose-inter.yml up",
+    "start:debug": "nodemon -L --config nodemon-debug.json",
+    "start:docker-dev": "nodemon -L --inspect=0.0.0.0:9229",
+    "start:prod": "node -r tsconfig-paths/register -r ts-node/register dist/main.js",
+    "lint": "tslint -p tsconfig.json -c tslint.json",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:cov": "jest --coverage",
+    "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "test:ci": "./node_modules/.bin/jest --ci --reporters=jest-junit --detectOpenHandles --forceExit",
+    "binah-lib-commits": "node ci/binah-lib.commits.js"
+  },
+  "dependencies": {
+    "moment": "^2.24.0",
+    "moment-timezone": "^0.5.25"
+  },
+  "devDependencies": {
+    "@types/node": "^10.14.10",
+    "jest": "^24.8.0",
+    "ts-jest": "^23.10.5",
+    "ts-loader": "~5.3.3",
+    "ts-node": "^7.0.1",
+    "tslint": "5.12.1",
+    "typescript": "^3.5.2"
+  },
+  "jest": {
+    "moduleDirectories": [
+      "src",
+      "node_modules"
+    ],
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "ts"
+    ],
+    "rootDir": "src",
+    "testRegex": ".spec.ts$",
+    "transform": {
+      "^.+\\.(t|j)s$": "ts-jest"
+    },
+    "coverageDirectory": "../coverage",
+    "testEnvironment": "node",
+    "reporters": [
+      "default"
+    ]
+  }
+}
